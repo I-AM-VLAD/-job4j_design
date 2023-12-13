@@ -22,12 +22,11 @@ public class LogFilter {
             e.printStackTrace();
         }
         for (String line : lines) {
-            String[] strings = line.split(" ");
-            for (String str : strings) {
-                if (str.equals("404")) {
+            String[] str = line.split(" ");
+                if ("404".equals(str[str.length - 2])) {
                     rsl.add(line);
                 }
-            }
+
         }
         return rsl;
     }
