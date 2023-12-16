@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Analysis {
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         List<String> list = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
             read.lines().forEach(list::add);
