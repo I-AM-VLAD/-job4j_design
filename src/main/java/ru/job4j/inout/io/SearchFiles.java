@@ -32,9 +32,9 @@ public class SearchFiles implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        listAll.add(file);
-        listAll = listAll.stream().filter(predicate)
-                .collect(Collectors.toList());
+        if (predicate.test(file)) {
+            listAll.add(file);
+        }
         return CONTINUE;
     }
 
