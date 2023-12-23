@@ -19,6 +19,16 @@ public class Search {
         if (args.length != 2) {
             throw new IllegalArgumentException("The number of parameters is not 2");
         }
+        Path dir = Paths.get(args[0]);
+        if (!Files.exists(dir)) {
+            throw new IllegalArgumentException("Директория не существует");
+        }
+        if (!Files.isDirectory(dir)) {
+            throw new IllegalArgumentException("Это не директория");
+        }
+        if (args[1].charAt(0) != '.' || args[1].length() == 1) {
+            throw new IllegalArgumentException("Расширение начинается не из '.' или кроме '.' нету символов");
+        }
         return true;
     }
 
