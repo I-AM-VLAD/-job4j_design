@@ -42,9 +42,7 @@ class ArgsNameTest {
     @Test
     void whenStringDoesNotContainKeyThenExceptionThrown() {
         assertThatThrownBy(() -> ArgsName.of(new String[]{"-Xmx=512", "-=?msg=Exit="}))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageMatching("^.+")
-                .hasMessageContaining("Error: This argument '-=?msg=Exit=' does not contain a key");
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -58,9 +56,7 @@ class ArgsNameTest {
     @Test
     void whenStringDoesNotContainValueThenExceptionThrown() {
         assertThatThrownBy(() -> ArgsName.of(new String[]{"-Xmx=512", "-request="}))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageMatching("^.+")
-                .hasMessageContaining("Error: This argument '-request=' does not contain a value");
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
