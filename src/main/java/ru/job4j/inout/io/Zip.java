@@ -35,10 +35,7 @@ public class Zip {
         }
     }
 
-    private boolean validate(String directory, String exclude, String output) {
-        if (directory == null || exclude == null || output == null) {
-            throw new IllegalArgumentException("The number of parameters is not 3");
-        }
+    private void validate(String directory, String exclude, String output) {
         Path dir = Paths.get(directory);
         if (!Files.exists(dir)) {
             throw new IllegalArgumentException("Директория не существует");
@@ -52,13 +49,15 @@ public class Zip {
         if (!output.contains(".zip")) {
             throw new IllegalArgumentException("Расширение итогового файла не '.zip'");
         }
-        return true;
     }
 
     public static void main(String[] args) {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("The number of parameters is not 3");
+        }
         ArgsName argsName = ArgsName.of(args);
         Zip zip = new Zip();
-        if (zip.validate(argsName.get("d"), argsName.get("e"), argsName.get("o"))) {
+        zip.validate(argsName.get("d"), argsName.get("e"), argsName.get("o"));
             Search searchExcept = new Search();
             Path start = Paths.get(argsName.get("d"));
             try {
@@ -67,6 +66,5 @@ public class Zip {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
     }
 }
