@@ -20,7 +20,7 @@ public class ConsoleChat {
     }
 
     private void saveLog(List<String> log) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(path, Charset.forName("WINDOWS-1251"), true))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(path, Charset.forName("UTF-8"), true))) {
             log.forEach(writer::println);
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,7 +29,7 @@ public class ConsoleChat {
 
     private List<String> readPhrases() {
         List<String> answer = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(botAnswers, Charset.forName("WINDOWS-1251")))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(botAnswers, Charset.forName("UTF-8")))) {
             reader.lines().forEach(answer::add);
         } catch (IOException e) {
             e.printStackTrace();
