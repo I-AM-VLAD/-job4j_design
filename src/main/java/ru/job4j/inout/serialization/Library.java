@@ -3,13 +3,23 @@ package ru.job4j.inout.serialization;
 import java.util.Arrays;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name = "library")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Library {
+    @XmlAttribute
     private boolean webSite;
+    @XmlAttribute
     private int visitors;
     private Book book;
+    @XmlAttribute
     private String director;
+    @XmlElementWrapper(name = "employees")
+    @XmlElement(name = "employee")
     private String[] employees;
+
+    public Library() { }
 
     public Library(boolean webSite, int visitors, Book book, String director, String... employees) {
         this.webSite = webSite;
