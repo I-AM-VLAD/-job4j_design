@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<library webSite="true" visitors="35">
+    <book author="Pushkin"/>
+    <director>Grigoriev</director>
+    <employees>
+        <employee>Vlad</employee>
+        <employee>Anna</employee>
+    </employees>
+</library>
