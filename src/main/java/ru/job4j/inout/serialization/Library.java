@@ -1,25 +1,18 @@
 package ru.job4j.inout.serialization;
 
-import java.util.Arrays;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import javax.xml.bind.annotation.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-@XmlRootElement(name = "library")
-@XmlAccessorType(XmlAccessType.FIELD)
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Library {
-    @XmlAttribute
     private boolean webSite;
-    @XmlAttribute
     private int visitors;
     private Book book;
-    @XmlAttribute
     private String director;
-    @XmlElementWrapper(name = "employees")
-    @XmlElement(name = "employee")
     private String[] employees;
-
-    public Library() { }
 
     public Library(boolean webSite, int visitors, Book book, String director, String... employees) {
         this.webSite = webSite;
@@ -40,14 +33,41 @@ public class Library {
                 + '}';
     }
 
-    public static void main(String[] args) {
-        Library library = new Library(false, 150, new Book("Pushkin"), "Ivanov",
-                new String[] {"Кузнецов", "Петров"});
-        Gson gson = new GsonBuilder().create();
-        String strJson = gson.toJson(library);
-        System.out.println(strJson);
-        Library libFromJson = gson.fromJson(strJson, Library.class);
-        System.out.println(libFromJson);
+    public String getDirector() {
+        return director;
+    }
 
+    public int getVisitors() {
+        return visitors;
+    }
+
+    public boolean isWebSite() {
+        return webSite;
+    }
+
+    public static void main(String[] args) {
+        /* JSONObject из json-строки */
+        JSONObject jsonBook = new JSONObject("{\"author\":\"Pushkin\"}");
+
+        /* JSONArray из ArrayList */
+        List<String> list = new ArrayList<>();
+        list.add("Vlad");
+        list.add("Anna");
+        JSONArray jsonEmployees = new JSONArray(list);
+
+        /* JSONObject напрямую методом put */
+        final Library library = new Library(true, 35, new Book("Pushkin"), "Vlad", "Anna", "Pavel");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("webSite", library.isWebSite());
+        jsonObject.put("visitors", library.getVisitors());
+        jsonObject.put("director", library.getDirector());
+        jsonObject.put("book", jsonBook);
+        jsonObject.put("employees", jsonEmployees);
+
+        /* Выведем результат в консоль */
+        System.out.println(jsonObject.toString());
+
+        /* Преобразуем объект library в json-строку */
+        System.out.println(new JSONObject(library).toString());
     }
 }
