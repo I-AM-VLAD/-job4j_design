@@ -15,24 +15,10 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        boolean bool = false;
-        if (data.hasNext()) {
-            if (!cursor.hasNext()) {
-                cursor = data.next();
-                if (cursor == Collections.emptyIterator()) {
-                    while (data.hasNext() && cursor == Collections.emptyIterator()) {
-                        cursor = data.next();
-                    }
-                }
-            }
-            if (cursor.hasNext()) {
-                bool = true;
-            }
+        while (!cursor.hasNext() && data.hasNext()) {
+            cursor = data.next();
         }
-        if (!data.hasNext() && cursor.hasNext()) {
-            bool = true;
-        }
-        return bool;
+        return cursor.hasNext();
     }
 
     @Override
@@ -40,8 +26,7 @@ public class FlatMap<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        T a = cursor.next();
-        return a;
+        return cursor.next();
     }
 
     public static void main(String[] args) {
