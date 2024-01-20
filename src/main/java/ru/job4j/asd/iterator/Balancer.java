@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Balancer {
-    private static List<Integer> list1 = new ArrayList<>();
-    private static List<Integer> list2 = new ArrayList<>();
-    private static int index = 0;
+    private  List<Integer> list1 = new ArrayList<>();
+    private List<Integer> list2 = new ArrayList<>();
+    private int index = 0;
 
-    public static void split(List<ArrayList<Integer>> nodes, Iterator<Integer> source) {
+    public void split(List<ArrayList<Integer>> nodes, Iterator<Integer> source) {
         if (!source.hasNext()) {
             return;
         }
@@ -45,6 +45,7 @@ public class Balancer {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
     }
 }

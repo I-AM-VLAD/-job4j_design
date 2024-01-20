@@ -16,7 +16,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2, 3).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).isEqualTo(
                 List.of(
                         List.of(1, 2, 3)
@@ -32,7 +33,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = Collections.emptyIterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).containsExactlyInAnyOrder(
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -47,7 +49,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2, 3).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).containsExactlyInAnyOrder(
                 new ArrayList<>(List.of(1, 3)),
                 new ArrayList<>(List.of(2))
@@ -62,7 +65,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2, 3).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).containsExactlyInAnyOrder(
                 new ArrayList<>(List.of(1)),
                 new ArrayList<>(List.of(2)),
@@ -78,7 +82,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).containsExactlyInAnyOrder(
                 new ArrayList<>(List.of(1)),
                 new ArrayList<>(List.of(2)),
@@ -94,7 +99,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2, 3, 4).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).containsExactlyInAnyOrder(
                 new ArrayList<>(List.of(1, 4)),
                 new ArrayList<>(List.of(2)),
@@ -110,7 +116,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2, 3, 4, 5).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).containsExactlyInAnyOrder(
                 new ArrayList<>(List.of(1, 4)),
                 new ArrayList<>(List.of(2, 5)),
@@ -126,7 +133,8 @@ class BalancerTest {
                 new ArrayList<>()
         );
         Iterator<Integer> source = List.of(1, 2, 3, 4, 5, 6).iterator();
-        Balancer.split(nodes, source);
+        Balancer balancer = new Balancer();
+        balancer.split(nodes, source);
         assertThat(nodes).containsExactlyInAnyOrder(
                 new ArrayList<>(List.of(1, 4)),
                 new ArrayList<>(List.of(2, 5)),
