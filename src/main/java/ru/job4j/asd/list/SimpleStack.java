@@ -21,7 +21,7 @@ public class SimpleStack<T> {
     }
 
     public static void main(String[] args) {
-        SimpleStack<Integer> stack = stack = new SimpleStack<>();
+        SimpleStack<Integer> stack = new SimpleStack<>();
         stack.push(1);
         stack.push(2);
 
