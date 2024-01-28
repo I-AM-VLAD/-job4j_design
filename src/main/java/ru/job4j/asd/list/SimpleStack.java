@@ -8,16 +8,11 @@ public class SimpleStack<T> {
     private int top;
 
     public T pop() {
-        if (top >= 0) {
-            return linked.get(top--);
-        } else {
-            throw new NoSuchElementException();
-        }
+       return linked.deleteFirst();
     }
 
     public void push(T value) {
-        linked.add(value);
-        top = linked.getSize() - 1;
+        linked.addFirst(value);
     }
 
     public static void main(String[] args) {
