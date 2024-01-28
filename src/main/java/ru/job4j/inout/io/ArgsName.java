@@ -15,6 +15,9 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Arguments not passed to program");
+        }
         for (String str : args) {
                 if (str.charAt(0) != '-') {
                     throw new IllegalArgumentException("Error: This argument 'request=?msg=Exit=' does not start with a '-' character");
@@ -42,9 +45,6 @@ public class ArgsName {
     }
 
     public static ArgsName of(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Arguments not passed to program");
-        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
