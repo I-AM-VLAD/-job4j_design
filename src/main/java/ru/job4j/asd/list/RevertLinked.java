@@ -80,3 +80,4 @@ public class RevertLinked<T> implements Iterable<T> {
         linked.revert();
     }
 }
+
