@@ -64,7 +64,7 @@ public class ForwardLinked<E> implements Iterable<E> {
             temp.next = null;
             return temp.item;
         }
-        throw new NoSuchElementException();
+        throw new NoSuchElementException("Queue is empty");
     }
 
     @Override
