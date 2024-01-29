@@ -67,6 +67,7 @@ public class ForwardLinked<E> implements Iterable<E> {
         return tempItem;
     }
 
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
