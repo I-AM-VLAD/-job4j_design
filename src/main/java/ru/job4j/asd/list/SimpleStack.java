@@ -12,10 +12,6 @@ public class SimpleStack<T> {
         linked.addFirst(value);
     }
 
-    public int getSize() {
-        return linked.getSize();
-    }
-
     public static void main(String[] args) {
         SimpleStack<Integer> stack = new SimpleStack<>();
         stack.push(1);
