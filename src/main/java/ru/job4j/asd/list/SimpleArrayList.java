@@ -19,9 +19,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
             if (size < container.length) {
                 container[size++] = value;
                 ++modCount;
+                return;
             }
             if (size == container.length) {
                 container = Arrays.copyOf(container, container.length * 2);
+                container[size++] = value;
+                ++modCount;
             }
         } else {
             T[] one = (T[]) new Object[1];
