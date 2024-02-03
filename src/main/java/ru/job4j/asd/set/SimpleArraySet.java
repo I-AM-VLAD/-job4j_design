@@ -20,12 +20,13 @@ public class SimpleArraySet<T> implements SimpleSet<T> {
 
     @Override
     public boolean contains(T value) {
+        boolean bool = false;
         for (int i = 0; i < set.size(); i++) {
             if (Objects.equals(set.get(i), value)) {
-                return true;
+                bool = true;
             }
         }
-        return false;
+        return bool;
     }
 
     @Override
