@@ -29,16 +29,16 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     public Iterator<K> iterator() {
         return new Iterator<K>() {
             int expectedModCount = modCount;
-
+            int index = 0;
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (count < table.length && table[count] == null) {
-                    count++;
+                while (index < table.length && table[index] == null) {
+                    index++;
                 }
-                return count < table.length;
+                return index < table.length;
             }
 
             @Override
@@ -46,14 +46,15 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return table[count++].key;
+                return table[index++].key;
             }
         };
     }
 
     @Override
     public boolean put(K key, V value) {
-        float difference = count / capacity;
+
+        float difference =  (float) count / (float) capacity;
         if (difference >= LOAD_FACTOR) {
             expand();
         }
@@ -71,7 +72,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     }
 
     private int hashCode(K key) {
-        return Objects.hash(key);
+        return Objects.hashCode(key);
     }
     @Override
     public V get(K key) {
@@ -105,6 +106,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
             table[i] = null;
             result = true;
             --count;
+            ++modCount;
         }
         return result;
     }
@@ -138,12 +140,10 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         map.put(2, "2");
         map.put(3, "3");
         map.put(4, "4");
-        Iterator<Integer> iterator = map.iterator();
-        iterator.next();
-        iterator.next();
-        iterator.next();
-
-        System.out.println(iterator.next());
+        map.put(null, "0000");
+        map.put(15, "15");
+        map.put(8, "8");
+        System.out.println();
     }
 }
 
