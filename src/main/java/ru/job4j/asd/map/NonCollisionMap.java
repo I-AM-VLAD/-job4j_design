@@ -53,6 +53,10 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     @Override
     public boolean put(K key, V value) {
+        float difference = count / capacity;
+        if (difference >= LOAD_FACTOR) {
+            expand();
+        }
         boolean bool = false;
         int hashCode = hashCode(key);
         int i = indexFor(hash(hashCode));
@@ -61,6 +65,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
             table[i] = mapEntry;
             bool = true;
             ++modCount;
+            ++count;
         }
         return bool;
     }
@@ -73,23 +78,48 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         int hashCode = hashCode(key);
         int i = indexFor(hash(hashCode));
         V getElement = null;
-        if (table[i] != null) {
-            if (hashCode(table[i].key) == hashCode) {
-                if (Objects.equals(table[i].key, key)) {
-                    getElement = table[i].value;
-                }
-            }
+        if (checkPosition(i, hashCode, key)) {
+            getElement = table[i].value;
         }
         return getElement;
     }
 
+    private boolean checkPosition(int i, int hashCode, K key) {
+        boolean bool = false;
+        if (table[i] != null) {
+            if (hashCode(table[i].key) == hashCode) {
+                if (Objects.equals(table[i].key, key)) {
+                    bool = true;
+                }
+            }
+        }
+        return bool;
+    }
+
     @Override
     public boolean remove(K key) {
-        return false;
+        int hashCode = hashCode(key);
+        int i = indexFor(hash(hashCode));
+        boolean result = false;
+        if (checkPosition(i, hashCode, key)) {
+            table[i] = null;
+            result = true;
+            --count;
+        }
+        return result;
     }
 
     private void expand() {
-
+        capacity = capacity * 2;
+        MapEntry<K, V>[] newTable = new MapEntry[capacity];
+        for (MapEntry element : table) {
+            if (element != null) {
+                int hashCode = hashCode((K) element.key);
+                int i = indexFor(hash(hashCode));
+                newTable[i] = element;
+            }
+        }
+        table = newTable;
     }
 
     private static class MapEntry<K, V> {
@@ -101,6 +131,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
             this.value = value;
         }
     }
+
     public static void main(String[] args) {
         SimpleMap<Integer, String> map = new NonCollisionMap<>();
         map.put(1, "1");
