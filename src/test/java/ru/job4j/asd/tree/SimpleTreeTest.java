@@ -64,3 +64,4 @@ public class SimpleTreeTest {
         assertThat(tree.isBinary()).isTrue();
     }
 }
+
