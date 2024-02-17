@@ -1,0 +1,57 @@
+UseSerialGC
+MergeSort Начало сортировки - 18:30:00.973810900
+MergeSort Конец сортировки - 18:30:01.227761400
+InsertSort Начало сортировки - 18:30:20.530134400
+InsertSort Конец сортировки - 18:30:43.580485300
+BubbleSort Начало сортировки - 18:31:06.271363400
+BubbleSort Конец сортировки - 18:34:23.763386
+10 малых сборок мусора и 0 больших.
+
+Using Parallel
+MergeSort Начало сортировки - 18:52:27.921804800
+MergeSort Конец сортировки - 18:52:28.130387300
+InsertSort Начало сортировки - 18:52:38.603020300
+InsertSort Конец сортировки - 18:53:00.082894300
+BubbleSort Начало сортировки - 18:53:45.706831100
+BubbleSort Конец сортировки - 18:57:04.694534100
+14 малых сборок мусора и 0 больших.
+
+Using G1
+MergeSort Начало сортировки - 19:04:47.337421400
+MergeSort Конец сортировки - 19:04:47.559574800
+InsertSort Начало сортировки - 19:04:55.348443600
+InsertSort Конец сортировки - 19:05:17.796929
+BubbleSort Начало сортировки - 19:05:27.866532300
+BubbleSort Конец сортировки - 19:08:44.383589100
+[0.060s][info][gc] Using G1
+[0.191s][info][gc] Periodic GC disabled
+[39.277s][info][gc] GC(0) Pause Young (Normal) (G1 Evacuation Pause) 7M->4M(12M) 14.933ms
+[39.320s][info][gc] GC(1) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 5.251ms
+[39.355s][info][gc] GC(2) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 0.686ms
+[39.367s][info][gc] GC(3) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 0.573ms
+[39.376s][info][gc] GC(4) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 0.612ms
+[39.389s][info][gc] GC(5) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.989ms
+[39.397s][info][gc] GC(6) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.769ms
+[39.404s][info][gc] GC(7) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.761ms
+[39.413s][info][gc] GC(8) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 1.012ms
+[39.419s][info][gc] GC(9) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 1.063ms
+[39.427s][info][gc] GC(10) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 1.591ms
+[39.433s][info][gc] GC(11) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 1.028ms
+[39.440s][info][gc] GC(12) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.657ms
+[39.446s][info][gc] GC(13) Pause Young (Normal) (G1 Evacuation Pause) 6M->5M(12M) 0.747ms
+[39.452s][info][gc] GC(14) Pause Young (Normal) (G1 Evacuation Pause) 7M->5M(12M) 0.803ms
+[39.458s][info][gc] GC(15) Pause Young (Concurrent Start) (G1 Humongous Allocation) 6M->5M(12M) 0.970ms
+[39.458s][info][gc] GC(16) Concurrent Cycle
+[39.469s][info][gc] GC(16) Pause Remark 6M->6M(12M) 1.913ms
+[39.473s][info][gc] GC(16) Pause Cleanup 6M->6M(12M) 0.045ms
+[39.474s][info][gc] GC(16) Concurrent Cycle 15.908ms
+[47.280s][info][gc] GC(17) Pause Young (Concurrent Start) (G1 Humongous Allocation) 6M->3M(12M) 19.566ms
+[47.280s][info][gc] GC(18) Concurrent Cycle
+[47.290s][info][gc] GC(18) Pause Remark 4M->4M(12M) 0.793ms
+[47.294s][info][gc] GC(18) Pause Cleanup 4M->4M(12M) 0.042ms
+[47.308s][info][gc] GC(18) Concurrent Cycle 27.795ms
+[79.769s][info][gc] GC(19) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4M->3M(12M) 1.252ms
+[79.770s][info][gc] GC(20) Concurrent Cycle
+[79.782s][info][gc] GC(20) Pause Remark 4M->4M(12M) 0.916ms
+[79.813s][info][gc] GC(20) Pause Cleanup 4M->4M(12M) 0.042ms
+[79.814s][info][gc] GC(20) Concurrent Cycle 44.715ms
