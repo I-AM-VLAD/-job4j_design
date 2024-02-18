@@ -1,5 +1,7 @@
 package ru.job4j.memory.leak;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,9 +13,12 @@ public interface Generate  {
     void generate();
 
     default List<String> read(String path) throws IOException {
-        List<String> text = new ArrayList<>();
-        Files.lines(Paths.get(path))
-                .forEach(text::add);
-        return text;
+        List<String> list = new ArrayList<>();
+        try (BufferedReader read = new BufferedReader(new FileReader(path))) {
+            read.lines().forEach(list::add);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

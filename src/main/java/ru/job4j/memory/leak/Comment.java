@@ -1,5 +1,7 @@
 package ru.job4j.memory.leak;
 
+import java.util.Objects;
+
 public class Comment {
 
     private String text;
@@ -14,7 +16,20 @@ public class Comment {
     /*getter/setter*/
 
     @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Comment comment = (Comment) o;
+        return Objects.equals(text, comment.text)
+                && Objects.equals(user, comment.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text, user);
     }
 }
