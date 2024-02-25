@@ -17,10 +17,13 @@ public abstract class AbstractCache<K, V> {
         if (cache.get(key).equals(null)) {
             put(key, load(key));
         }
-        if (cache.get(key).get().equals(null)) {
+        V strongOut = cache.get(key).get();
+        if (strongOut.equals(null)) {
             put(key, load(key));
+            V strongIn = cache.get(key).get();
+            strongOut = strongIn;
         }
-        return cache.get(key).get();
+        return strongOut;
     }
 
     protected abstract V load(K key);
