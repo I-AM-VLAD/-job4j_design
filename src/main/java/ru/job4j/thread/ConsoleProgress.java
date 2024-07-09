@@ -9,7 +9,7 @@ public class ConsoleProgress implements Runnable {
                 var process = new char[] {'-', '\\', '|', '/'};
                 System.out.print("\r load: " + process[i]);
                 i++;
-                if (i == 4) {
+                if (i == process.length) {
                     i = 0;
                 }
                 Thread.sleep(500);
