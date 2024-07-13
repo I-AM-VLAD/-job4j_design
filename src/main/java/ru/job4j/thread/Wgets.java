@@ -9,34 +9,37 @@ import java.nio.file.Files;
 public class Wgets implements Runnable {
     private final String url;
     private final int speed;
+    private File target;
 
-    public Wgets(String url, int speed) {
+    public Wgets(String url, int speed, File target) {
         this.url = url;
         this.speed = speed;
+        this.target = target;
     }
 
     @Override
     public void run() {
-        var startAt = System.currentTimeMillis();
-        var file = new File("tmp.xml");
+        var startAtOpen = System.currentTimeMillis();
         try (var input = new URL(url).openStream();
-             var output = new FileOutputStream(file)) {
-            System.out.println("Open connection: " + (System.currentTimeMillis() - startAt) + " ms");
+             var output = new FileOutputStream(target)) {
+            System.out.println("Open connection: " + (System.currentTimeMillis() - startAtOpen) + " ms");
             var dataBuffer = new byte[512];
             int bytesRead;
+            int countOfBytes = 0;
+            var startAt = System.currentTimeMillis();
             while ((bytesRead = input.read(dataBuffer, 0, dataBuffer.length)) != -1) {
-                var downloadAt = System.nanoTime();
                 output.write(dataBuffer, 0, bytesRead);
-                long resultTime = System.nanoTime() - downloadAt;
-                long actualSpeed = 512 / resultTime;
-                if (actualSpeed > speed) {
-                    try {
-                        Thread.sleep(actualSpeed / speed);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
+                countOfBytes += bytesRead;
+                if (countOfBytes >= speed) {
+                   long timeDifference = System.currentTimeMillis() - startAt;
+                   if (timeDifference < 1000) {
+                       try {
+                           Thread.sleep(countOfBytes / timeDifference);
+                       } catch (InterruptedException e) {
+                           Thread.currentThread().interrupt();
+                       }
+                   }
                 }
-                System.out.println("Read 512 bytes : " + resultTime + " nano.");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,12 +47,13 @@ public class Wgets implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        if (args.length < 2) {
+        if (args.length < 3) {
             throw new IllegalArgumentException("Not enough arguments");
         }
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
-        Thread wget = new Thread(new Wgets(url, speed));
+        var file = new File(args[2]);
+        Thread wget = new Thread(new Wgets(url, speed, file));
         wget.start();
         wget.join();
     }
