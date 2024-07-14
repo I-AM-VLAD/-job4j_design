@@ -34,12 +34,14 @@ public class Wgets implements Runnable {
                    long timeDifference = System.currentTimeMillis() - startAt;
                    if (timeDifference < 1000) {
                        try {
-                           Thread.sleep(countOfBytes / timeDifference);
+                           Thread.sleep(1000 - timeDifference);
                        } catch (InterruptedException e) {
                            Thread.currentThread().interrupt();
                        }
                    }
                 }
+                startAt = System.currentTimeMillis();
+                countOfBytes = 0;
             }
         } catch (IOException e) {
             e.printStackTrace();
