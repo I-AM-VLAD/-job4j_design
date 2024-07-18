@@ -39,9 +39,9 @@ public class Wgets implements Runnable {
                            Thread.currentThread().interrupt();
                        }
                    }
+                    startAt = System.currentTimeMillis();
+                    countOfBytes = 0;
                 }
-                startAt = System.currentTimeMillis();
-                countOfBytes = 0;
             }
         } catch (IOException e) {
             e.printStackTrace();
