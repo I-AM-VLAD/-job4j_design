@@ -13,24 +13,26 @@ public class GetContent {
         this.file = file;
     }
 
-    public String content(Predicate<Character> filter) throws IOException {
-        InputStream input = new FileInputStream(file);
-        String output = "";
-        int data;
-        while ((data = input.read()) > 0) {
-            if (filter.test((char) data)) {
-                output += (char) data;
+    public String content(Predicate<Character> filter) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (InputStream input = new FileInputStream(file)) {
+            int data;
+            while ((data = input.read()) != 0) {
+                if (filter.test((char) data)) {
+                    stringBuilder.append((char) data);
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        input.close();
-        return output;
+        return stringBuilder.toString();
     }
 
-    public String getContentWithoutUnicode() throws IOException {
+    public String getContentWithoutUnicode() {
         return content(x -> x < 0x80);
     }
 
-    public String getContent() throws IOException {
+    public String getContent() {
         return content(x -> true);
     }
 }
