@@ -12,12 +12,11 @@ public class AccountStorage {
     private final HashMap<Integer, Account> accounts = new HashMap<>();
 
     public synchronized boolean add(Account account) {
-        return accounts.putIfAbsent(account.getId(), account) != null;
+        return accounts.putIfAbsent(account.getId(), account) == null;
     }
 
     public synchronized boolean update(Account account) {
-        accounts.put(account.getId(), account);
-        return true;
+        return accounts.replace(account.getId(), getById(account.getId()).get(), account);
     }
 
     public synchronized void delete(int id) {
@@ -25,8 +24,7 @@ public class AccountStorage {
     }
 
     public synchronized Optional<Account> getById(int id) {
-        Optional<Account> opt = Optional.ofNullable(accounts.get(id));
-        return opt;
+        return Optional.ofNullable(accounts.get(id));
     }
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
@@ -34,11 +32,9 @@ public class AccountStorage {
         Optional<Account> optAccountTo = getById(toId);
         boolean result = false;
         if (optAccountFrom.isPresent() && optAccountTo.isPresent()) {
-            Account accountFrom = optAccountFrom.get();
-            Account accountTo = optAccountTo.get();
-            if (amount <= accountFrom.getAmount()) {
-                accountFrom.setAmount(accountFrom.getAmount() - amount);
-                accountTo.setAmount(accountTo.getAmount() + amount);
+            if (amount <= optAccountFrom.get().getAmount()) {
+                optAccountFrom.get().setAmount(optAccountFrom.get().getAmount() - amount);
+                optAccountTo.get().setAmount(optAccountTo.get().getAmount() + amount);
                 result = true;
             }
         }
