@@ -11,35 +11,22 @@ public class SimpleBlockingQueue<T> {
 
     @GuardedBy("this")
     private Queue<T> queue = new LinkedList<>();
-
+    private int size = 100;
     private final Object monitor = this;
 
-    public void offer(T value) {
-        synchronized (monitor) {
-            boolean result = queue.offer(value);
-            while (!result) {
-                try {
-                    monitor.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+    public synchronized void offer(T value) throws InterruptedException {
+            while (queue.size() > size) {
+                monitor.wait();
             }
             monitor.notify();
-        }
+            queue.offer(value);
     }
 
-    public T poll() {
-        synchronized (monitor) {
-            T result = queue.poll();
-            while (result == null) {
-                try {
-                    monitor.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+    public synchronized T poll() throws InterruptedException {
+            while (queue.size() == 0) {
+                monitor.wait();
             }
             monitor.notify();
-            return result;
-        }
+            return queue.poll();
     }
 }

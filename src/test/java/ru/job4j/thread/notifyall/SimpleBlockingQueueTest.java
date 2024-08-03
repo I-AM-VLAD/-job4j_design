@@ -10,10 +10,18 @@ class SimpleBlockingQueueTest {
         var simpleBlockingQueue = new SimpleBlockingQueue<Integer>();
         int[] result = new int[1];
         var producer = new Thread(() -> {
-            simpleBlockingQueue.offer(1);
+            try {
+                simpleBlockingQueue.offer(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         var consumer = new Thread(() -> {
-            result[0] = simpleBlockingQueue.poll();
+            try {
+                result[0] = simpleBlockingQueue.poll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         producer.start();
         consumer.start();
