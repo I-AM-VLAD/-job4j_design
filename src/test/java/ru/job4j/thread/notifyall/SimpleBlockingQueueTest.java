@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 class SimpleBlockingQueueTest {
     @Test
     public void whenTestProducerAndConsumer() throws InterruptedException {
-        var simpleBlockingQueue = new SimpleBlockingQueue<Integer>();
+        var simpleBlockingQueue = new SimpleBlockingQueue<Integer>(100);
         int[] result = new int[1];
         var producer = new Thread(() -> {
             try {
