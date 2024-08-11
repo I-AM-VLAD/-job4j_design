@@ -14,19 +14,22 @@ public class Cache {
         return memory.putIfAbsent(model.getId(), model) == null;
     }
 
-    public boolean update(Base model) throws OptimisticException {
-        int newVersion = model.getVersion() + 1;
-        model.setVersion(newVersion);
-        Base stored = memory.get(model.getId());
-        if (stored.getVersion() != model.getVersion()) {
-            throw new OptimisticException("Versions are not equal");
-        }
-        memory.computeIfPresent(model.getId(), (a, b) -> b);
-        return true;
+    public void update(Base model) throws OptimisticException {
+        memory.computeIfPresent(
+                model.getId(),
+                (key, value) -> {
+                    if (model.getVersion() != value.getVersion()) {
+                            throw new OptimisticException("Versions don't match. Data hasn't changed."
+                        );
+                    }
+                    model.setVersion(model.getVersion() + 1);
+                    return model;
+                }
+        );
     }
 
     public void delete(int id) {
-        /* TODO impl */
+        memory.remove(id);
     }
 
     public Optional<Base> findById(int id) {
