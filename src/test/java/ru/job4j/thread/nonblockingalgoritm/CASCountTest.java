@@ -6,23 +6,26 @@ import static org.assertj.core.api.Assertions.*;
 
 class CASCountTest {
     @Test
-    public void whenIncrementOnce() {
+    public void whenIncrement() throws InterruptedException {
         var casCount = new CASCount();
-        casCount.increment();
-        assertThat(casCount.get()).isEqualTo(1);
-    }
-
-    @Test
-    public void whenWithoutIncrement() {
-        var casCount = new CASCount();
-        assertThat(casCount.get()).isEqualTo(0);
-    }
-
-    @Test
-    public void whenIncrementTwice() {
-        var casCount = new CASCount();
-        casCount.increment();
-        casCount.increment();
-        assertThat(casCount.get()).isEqualTo(2);
+        Thread first = new Thread(
+                () -> {
+                    for (int i = 1; i <= 5; i++) {
+                        casCount.increment();
+                    }
+                }
+        );
+        Thread second = new Thread(
+                () -> {
+                    for (int i = 1; i <= 5; i++) {
+                        casCount.increment();
+                    }
+                }
+        );
+        first.start();
+        second.start();
+        first.join();
+        second.join();
+        assertThat(casCount.get()).isEqualTo(10);
     }
 }

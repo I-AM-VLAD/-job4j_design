@@ -10,7 +10,12 @@ public class CASCount {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     public void increment() {
-        counter.incrementAndGet();
+        int a;
+        int b;
+        do {
+             a = counter.get();
+             b = counter.incrementAndGet();
+        } while (counter.compareAndSet(a, b));
     }
 
     public int get() {
