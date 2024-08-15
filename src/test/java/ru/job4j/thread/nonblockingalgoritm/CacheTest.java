@@ -36,7 +36,7 @@ class CacheTest {
         var find = cache.findById(base.getId());
         assertThat(find.isEmpty()).isTrue();
     }
-    /*
+
     @Test
     public void whenMultiUpdateThrowException() throws OptimisticException {
         var base = new Base(1,  "Base", 1);
@@ -47,5 +47,11 @@ class CacheTest {
                 .isInstanceOf(OptimisticException.class);
     }
 
-     */
+    @Test
+    public void whenDeleteWrongKey() {
+        var cache = new Cache();
+        cache.delete(1);
+        var find = cache.findById(1);
+        assertThat(find.isEmpty()).isTrue();
+    }
 }

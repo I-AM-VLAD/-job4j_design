@@ -18,7 +18,7 @@ public class Cache {
         memory.computeIfPresent(
                 model.getId(),
                 (key, value) -> {
-                    if (model.getVersion() != value.getVersion()) {
+                    if (model.getVersion() != key) {
                             throw new OptimisticException("Versions don't match. Data hasn't changed."
                         );
                     }
