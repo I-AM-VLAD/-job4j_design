@@ -40,10 +40,11 @@ class CacheTest {
     @Test
     public void whenMultiUpdateThrowException() throws OptimisticException {
         var base = new Base(1,  "Base", 1);
+        var newBase = new Base(1,  "Base", 2);
         var cache = new Cache();
         cache.add(base);
-        cache.update(base);
-        assertThatThrownBy(() -> cache.update(base))
+        cache.add(newBase);
+        assertThatThrownBy(() -> cache.update(newBase))
                 .isInstanceOf(OptimisticException.class);
     }
 
