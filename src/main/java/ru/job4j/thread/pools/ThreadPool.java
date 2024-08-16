@@ -11,9 +11,15 @@ public class ThreadPool {
 
     public ThreadPool() throws InterruptedException {
         int size = Runtime.getRuntime().availableProcessors();
+        work(() -> System.out.println(Thread.currentThread().getName()));
+        work(() -> System.out.println(Thread.currentThread().getName()));
         for (int i = 0; i < size; i++) {
-            threads.add((Thread) tasks.poll());
+            threads.add((new Thread(tasks.poll())));
         }
+    }
+
+    public List<Thread> getThreads() {
+        return threads;
     }
 
     public void work(Runnable job) throws InterruptedException {
@@ -24,5 +30,15 @@ public class ThreadPool {
         for (Thread thread : threads) {
             thread.interrupt();
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ThreadPool threadPool = new ThreadPool();
+        threadPool.work(() -> System.out.println(Thread.currentThread().getName()));
+        threadPool.work(() -> System.out.println(Thread.currentThread().getName()));
+        for (Thread thread : threadPool.getThreads()) {
+            thread.start();
+        }
+        threadPool.shutdown();
     }
 }
