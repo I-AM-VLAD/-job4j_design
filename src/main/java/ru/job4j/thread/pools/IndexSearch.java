@@ -3,16 +3,21 @@ package ru.job4j.thread.pools;
 import java.util.concurrent.RecursiveTask;
 
 public class IndexSearch<T> extends RecursiveTask<Object> {
-    private User userForIndex;
-    private User[] users;
+    private T forIndex;
+    private T[] array;
     private int startIndex;
     private int finishIndex;
+    private  int i = 0;
 
-    public IndexSearch(User userForIndex, User[] users, int startIndex, int finishIndex) {
-        this.userForIndex = userForIndex;
-        this.users = users;
+    public IndexSearch(T forIndex, T[] array, int startIndex, int finishIndex) {
+        this.forIndex = forIndex;
+        this.array = array;
         this.startIndex = startIndex;
         this.finishIndex = finishIndex;
+    }
+
+    public T[] getArray() {
+        return array;
     }
 
     public int linearSearch(User[] users, User userForIndex) {
@@ -27,18 +32,16 @@ public class IndexSearch<T> extends RecursiveTask<Object> {
 
     @Override
     protected Integer compute() {
-        int i = 0;
         int result = -1;
         int mid = (startIndex + finishIndex) / 2;
-        User[] source = {new User("1", "111"), new User("2", "222")};
-        IndexSearch leftSide = new IndexSearch(new User("1", "111"),
-                source, 0, mid);
-        IndexSearch rightSide = new IndexSearch(new User("1", "111"),
-                source, mid + 1, source.length - 1);
-
-        if (users[i].equals(userForIndex)) {
+        IndexSearch leftSide = new IndexSearch(forIndex,
+                array, startIndex, mid);
+        IndexSearch rightSide = new IndexSearch(forIndex,
+                array, mid + 1, finishIndex);
+        if (leftSide.getArray().equals(forIndex) || rightSide.getArray().equals(forIndex)) {
             result = i;
         }
+        i++;
         leftSide.fork();
         rightSide.fork();
         leftSide.join();
