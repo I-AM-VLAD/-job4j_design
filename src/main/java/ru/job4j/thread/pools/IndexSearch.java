@@ -16,14 +16,10 @@ public class IndexSearch<T> extends RecursiveTask<Object> {
         this.finishIndex = finishIndex;
     }
 
-    public T[] getArray() {
-        return array;
-    }
-
-    public int linearSearch(User[] users, User userForIndex) {
+    public int linearSearch() {
         int result = -1;
-        for (int i = 0; i < users.length; i++) {
-            if (users[i].equals(userForIndex)) {
+        for (int i = startIndex; i <= finishIndex; i++) {
+            if (array[i].equals(forIndex)) {
                 result = i;
             }
         }
@@ -32,21 +28,19 @@ public class IndexSearch<T> extends RecursiveTask<Object> {
 
     @Override
     protected Integer compute() {
-        int result = -1;
+        if (finishIndex - startIndex < 10) {
+            return linearSearch();
+        }
         int mid = (startIndex + finishIndex) / 2;
         IndexSearch leftSide = new IndexSearch(forIndex,
                 array, startIndex, mid);
         IndexSearch rightSide = new IndexSearch(forIndex,
                 array, mid + 1, finishIndex);
-        if (leftSide.getArray().equals(forIndex) || rightSide.getArray().equals(forIndex)) {
-            result = i;
-        }
-        i++;
         leftSide.fork();
         rightSide.fork();
         leftSide.join();
         rightSide.join();
-        return result;
+        return Math.max(startIndex, finishIndex);
     }
 
 
