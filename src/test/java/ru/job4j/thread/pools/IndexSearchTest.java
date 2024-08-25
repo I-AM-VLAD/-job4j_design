@@ -10,9 +10,9 @@ class IndexSearchTest {
         User[] source = {new User("1", "111"), new User("2", "222")};
         IndexSearch indexSearch = new IndexSearch(new User("2", "222"),
                 source, 0, source.length - 1);
-        assertThat(indexSearch.compute()).isEqualTo(1);
+        assertThat(indexSearch.search()).isEqualTo(1);
     }
-    /*
+/*
     @Test
     public void whenRecursiveSearch() {
         Model[] models = new Model[100];
@@ -20,9 +20,9 @@ class IndexSearchTest {
             models[i] = new Model(i);
         }
         IndexSearch indexSearch = new IndexSearch(new Model(20), models, 0, models.length - 1);
-        assertThat(indexSearch.compute()).isEqualTo(20);
+        assertThat(indexSearch.search()).isEqualTo(20);
     }
 
-     */
+ */
 }
 
