@@ -15,13 +15,18 @@ class RolColSumTest {
         int[][] matrix = {{1, 2, 3},
                           {4, 5, 6},
                           {7, 8, 9}};
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < matrix.length; i++) {
-            list.add(RolColSum.sum(matrix)[i].getRowSum());
-            list.add(RolColSum.sum(matrix)[i].getColSum());
-        }
-        List<Integer> expected = Arrays.asList(6, 12, 15, 15, 24, 18);
-        assertThat(list).isEqualTo(expected);
+        Sums[] sums = RolColSum.sum(matrix);
+        Sums sum1 = new Sums();
+        sum1.setRowSum(6);
+        sum1.setColSum(12);
+        Sums sum2 = new Sums();
+        sum2.setRowSum(15);
+        sum2.setColSum(15);
+        Sums sum3 = new Sums();
+        sum3.setRowSum(24);
+        sum3.setColSum(18);
+        Sums[] expected = {sum1, sum2, sum3};
+        assertThat(sums).isEqualTo(expected);
     }
 
     @Test
@@ -29,12 +34,17 @@ class RolColSumTest {
         int[][] matrix = {{1, 2, 3},
                           {4, 5, 6},
                           {7, 8, 9}};
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < matrix.length; i++) {
-            list.add(RolColSum.asyncSum(matrix)[i].getRowSum());
-            list.add(RolColSum.asyncSum(matrix)[i].getColSum());
-        }
-        List<Integer> expected = Arrays.asList(6, 12, 15, 15, 24, 18);
-        assertThat(list).isEqualTo(expected);
+        Sums[] sums = RolColSum.asyncSum(matrix);
+        Sums sum1 = new Sums();
+        sum1.setRowSum(6);
+        sum1.setColSum(12);
+        Sums sum2 = new Sums();
+        sum2.setRowSum(15);
+        sum2.setColSum(15);
+        Sums sum3 = new Sums();
+        sum3.setRowSum(24);
+        sum3.setColSum(18);
+        Sums[] expected = {sum1, sum2, sum3};
+        assertThat(sums).isEqualTo(expected);
     }
 }

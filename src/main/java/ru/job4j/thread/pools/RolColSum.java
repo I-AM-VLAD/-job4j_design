@@ -4,26 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class RolColSum {
-    public static class Sums {
-        private int rowSum = 0;
-        private int colSum = 0;
 
-        public int getRowSum() {
-            return rowSum;
-        }
-
-        public void setRowSum(int rowSum) {
-            this.rowSum = rowSum;
-        }
-
-        public int getColSum() {
-            return colSum;
-        }
-
-        public void setColSum(int colSum) {
-            this.colSum = colSum;
-        }
-    }
 
     public static Sums[] sum(int[][] matrix) {
         Sums[] sums = new Sums[matrix.length];
@@ -32,8 +13,8 @@ public class RolColSum {
         }
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                sums[i].rowSum += matrix[i][j];
-                sums[i].colSum += matrix[j][i];
+                sums[i].setRowSum(sums[i].getRowSum() + matrix[i][j]);
+                sums[i].setColSum(sums[i].getColSum() + matrix[j][i]);
             }
         }
         return sums;
@@ -55,8 +36,8 @@ public class RolColSum {
                 () -> {
                     Sums sums = new Sums();
                     for (int j = 0; j < matrix.length; j++) {
-                        sums.rowSum += matrix[i][j];
-                        sums.colSum += matrix[j][i];
+                        sums.setRowSum(sums.getRowSum() + matrix[i][j]);
+                        sums.setColSum(sums.getColSum() + matrix[j][i]);
                     }
                     return sums;
                 }
