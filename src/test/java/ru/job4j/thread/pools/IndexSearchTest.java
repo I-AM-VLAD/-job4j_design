@@ -12,7 +12,7 @@ class IndexSearchTest {
                 source, 0, source.length - 1);
         assertThat(indexSearch.search(new User("2", "222"), source)).isEqualTo(1);
     }
-/*
+
     @Test
     public void whenRecursiveSearch() {
         Model[] models = new Model[100];
@@ -23,8 +23,6 @@ class IndexSearchTest {
         int result = indexSearch.search(new Model(20), models);
         assertThat(result).isEqualTo(20);
     }
-
- */
 
 }
 

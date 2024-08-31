@@ -48,5 +48,4 @@ public class IndexSearch<T> extends RecursiveTask<Integer> {
         return (int) forkJoinPool.invoke(new IndexSearch(forIndex,
                 array, 0, array.length - 1));
     }
-
 }
