@@ -3,7 +3,7 @@ package ru.job4j.thread.pools;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
-public class IndexSearch<T> extends RecursiveTask<Object> {
+public class IndexSearch<T> extends RecursiveTask<Integer> {
     private T forIndex;
     private T[] array;
     private int startIndex;
@@ -40,12 +40,10 @@ public class IndexSearch<T> extends RecursiveTask<Object> {
                 array, mid + 1, finishIndex);
         leftSide.fork();
         rightSide.fork();
-        leftSide.join();
-        rightSide.join();
-        return Math.max(startIndex, finishIndex);
+        return Math.max((int) rightSide.join(), (int) leftSide.join());
     }
 
-    public int search() {
+    public static <T> int search(T forIndex, T[] array) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         return (int) forkJoinPool.invoke(new IndexSearch(forIndex,
                 array, 0, array.length - 1));
